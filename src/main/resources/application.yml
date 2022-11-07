@@ -1,0 +1,154 @@
+server:
+  port: 9090
+spring:
+  application:
+    name: ms-bank-apigateway-service
+  config:
+    import: optional:configserver:http://ms-bank-config-server:8888
+  cloud:
+  
+  
+    gateway:
+      default-filters:
+      - name: SCGWGlobalFilter
+      routes:
+        - id: ms-bank-product-service
+          uri: http://localhost:8100/
+          predicates:
+            - Path=/product/**
+          filters:
+          - name: SCGWPreFilter
+          - name: SCGWPostFilter
+          
+        - id: ms-bank-account-service
+          uri: http://localhost:8101/
+          predicates:
+            - Path=/account/**
+          filters:
+          - name: SCGWPreFilter
+          - name: SCGWPostFilter
+          
+        - id: ms-bank-account-balance-service
+          uri: http://localhost:8102/
+          predicates:
+            - Path=/accountBalance/**
+          filters:
+          - name: SCGWPreFilter
+          - name: SCGWPostFilter
+          
+        - id: ms-bank-credit-service
+          uri: http://localhost:8106/
+          predicates:
+            - Path=/credit/**
+          filters:
+          - name: SCGWPreFilter
+          - name: SCGWPostFilter
+          
+         - id: ms-bank-debit-card-service
+          uri: http://localhost:8103/
+          predicates:
+            - Path=/debitCard/**
+          filters:
+          - name: SCGWPreFilter
+          - name: SCGWPostFilter
+        
+        - id: ms-bank-debit-card-associated-service
+          uri: http://localhost:8104/
+          predicates:
+            - Path=/debitCardAssociated/**
+          filters:
+          - name: SCGWPreFilter
+          - name: SCGWPostFilter
+          
+        - id: ms-bank-transaction-service
+          uri: http://localhost:8083/
+          predicates:
+            - Path=/transaction/**
+          filters:
+          - name: SCGWPreFilter
+          - name: SCGWPostFilter
+          
+       - id: ms-bank-transaction-validate-service
+          uri: http://localhost:8105/
+          predicates:
+            - Path=/transactionValidate/**
+          filters:
+          - name: SCGWPreFilter
+          - name: SCGWPostFilter
+          
+       - id: ms-bank-bootcoin-customer-service
+          uri: http://localhost:4000/
+          predicates:
+            - Path=/bootcoinCustomer/**
+          filters:
+          - name: SCGWPreFilter
+          - name: SCGWPostFilter
+         
+       - id: ms-bank-bootcoin-exchange-service
+          uri: http://localhost:4003/
+          predicates:
+            - Path=/bootcoinExchange/**
+          filters:
+          - name: SCGWPreFilter
+          - name: SCGWPostFilter 
+
+
+       - id: ms-bank-bootcoin-exchange-validate-service
+          uri: http://localhost:4004/
+          predicates:
+            - Path=/bootcoinExchangeValidate/**
+          filters:
+          - name: SCGWPreFilter
+          - name: SCGWPostFilter           
+          
+         - id: ms-bank-bootcoin-wallet-service
+          uri: http://localhost:4001/
+          predicates:
+            - Path=/bootcoinWallet/**
+          filters:
+          - name: SCGWPreFilter
+          - name: SCGWPostFilter     
+          
+        - id: ms-bank-bootcoin-wallet-balance-service
+          uri: http://localhost:4002/
+          predicates:
+            - Path=/bootcoinWallet/**
+          filters:
+          - name: SCGWPreFilter
+          - name: SCGWPostFilter    
+          
+         - id: ms-yanki-account-service
+          uri: http://localhost:5000/
+          predicates:
+            - Path=/yankiAccount/**
+          filters:
+          - name: SCGWPreFilter
+          - name: SCGWPostFilter 
+          
+         - id: ms-yanki-account-balance-service
+          uri: http://localhost:5001/
+          predicates:
+            - Path=/yankiAccountBalance/**
+          filters:
+          - name: SCGWPreFilter
+          - name: SCGWPostFilter 
+          
+         - id: ms-yanki-transaction-validate-service
+          uri: http://localhost:5001/
+          predicates:
+            - Path=/yankiAccountBalance/**
+          filters:
+          - name: SCGWPreFilter
+          - name: SCGWPostFilter
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://ms-bank-discovery-service:8761/eureka/
+    registerWithEureka: true
+    fetchRegistry: true
+
+
+  
+
+
